@@ -1,0 +1,6 @@
+# Brahma Upscale Phase 1 — Python orchestration and media handling.
+# Install a CUDA-enabled PyTorch build separately using https://pytorch.org/get-started/locally/
+Pillow>=10.4.0
+opencv-python>=4.10.0
+tqdm>=4.66.0
+psutil>=6.0.0
