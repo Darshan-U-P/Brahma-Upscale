@@ -21,22 +21,55 @@ Brahma Upscale is being developed in two phases:
 - **Video pipeline:** FFmpeg plus a suitable video-restoration model selected after checking dependencies and available VRAM
 - **Stack:** Python, PyTorch, Pillow/OpenCV, FFmpeg
 
-The first milestone is to run Real-ESRGAN on a single test image, verify GPU inference, and save an input/output comparison. This repository is currently in the initial setup stage.
+The first milestone is to verify the local environment and then run Real-ESRGAN on a single test image. We will record GPU availability and save an input/output comparison before implementing the larger pipeline.
 
-## Planned structure
+## Quick start (Windows PowerShell)
+
+Clone the repository:
+
+```powershell
+git clone https://github.com/Darshan-U-P/Brahma-Upscale.git D:\Brahma-Upscale
+cd D:\Brahma-Upscale
+
+py -0p
+python --version
+git --version
+nvidia-smi
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python scripts/check_environment.py
+```
+
+The environment-check script reports Python packages, NVIDIA driver/GPU information, PyTorch CUDA availability, FFmpeg, and whether the optional Real-ESRGAN NCNN-Vulkan executable is present. It does not install or change anything.
+
+**Important:** PyTorch must be installed with a build compatible with your NVIDIA driver. Use the official [PyTorch installation selector](https://pytorch.org/get-started/locally/) and choose Windows + Pip + the appropriate CUDA platform. Then run `python scripts/check_environment.py` again. Do not install a CPU-only build if GPU inference is required.
+
+If PowerShell blocks virtual-environment activation, use this for the current PowerShell process only:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+```
+
+## Project structure
 
 ```text
 Brahma-Upscale/
 ├── input/              # Local test images and videos (not committed)
 ├── output/             # Generated results (not committed)
 ├── models/             # Downloaded model weights (not committed)
-├── src/
-│   ├── image/          # Image inference pipeline
-│   └── video/          # Video processing pipeline
+├── tools/              # Optional portable model executables (not committed)
+├── src/                # Application source
+├── scripts/
+│   └── check_environment.py
 ├── tests/
 ├── docs/
-├── .gitignore
+│   └── PHASE_1_PLAN.md
 ├── requirements.txt
+├── requirements-dev.txt
 └── README.md
 ```
 
@@ -46,9 +79,10 @@ The initial target is a Windows laptop with an NVIDIA RTX 3050 Ti-class GPU and 
 
 ## Development principles
 
-- Keep model weights, input media, generated outputs, and virtual environments out of Git.
+- Keep model weights, third-party binaries, input media, generated outputs, and virtual environments out of Git.
 - Record model names, model-weight sources, software versions, test images, and benchmark settings.
 - Compare Phase 2 against Phase 1 using the same evaluation data and conditions.
+- AI upscaling can synthesize plausible details; it cannot guarantee that every reconstructed detail matches the original scene.
 
 ## License and model terms
 
