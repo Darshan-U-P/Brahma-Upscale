@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Media inputs and generated outputs: keep only folder placeholders
+input/*
+!input/.gitkeep
+output/*
+!output/.gitkeep
+
+# Model checkpoints and downloaded third-party tools
+models/*
+!models/.gitkeep
+tools/*
+!tools/.gitkeep
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.engine
+
+# Video, image, and benchmark artifacts
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.jpg
+*.jpeg
+*.png
+*.webp
+!docs/**/*.png
+!docs/**/*.jpg
+!docs/**/*.webp
